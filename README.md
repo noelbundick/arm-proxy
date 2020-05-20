@@ -11,6 +11,7 @@ git clone https://github.com/noelbundick/arm-proxy.git
 cd arm-proxy/sample
 az arm-proxy start
 
+# (In a separate terminal)
 # Iterate on linked ARM templates hosted from your local machine (replace with your ngrok URL)
 az deployment sub create -l westus2 -u https://be5cc4e3.ngrok.io/baseTemplate.json
 ```
