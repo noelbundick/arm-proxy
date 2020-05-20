@@ -2,10 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "assetsBaseUrl": {
-      "type": "string",
-      "defaultValue": ""
-    },
     "name": {
       "type": "string",
       "defaultValue": "[deployment().name]"
@@ -13,7 +9,7 @@
   },
   "functions": [],
   "variables": {
-    "assetsBaseUrl": "[if(empty(parameters('assetsBaseUrl')), if(contains(deployment().properties, 'templateLink'), uri(deployment().properties.templateLink.uri, '../'), 'https://raw.githubusercontent.com/noelbundick/arm-proxy/master/sample'), parameters('assetsBaseUrl'))]"
+    "assetsBaseUrl": "[uri(deployment().properties.templateLink.uri, '../')]"
   },
   "resources": [
     {
