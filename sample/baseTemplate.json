@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "assetsBaseUrl": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "name": {
+      "type": "string",
+      "defaultValue": "[deployment().name]"
+    }
+  },
+  "functions": [],
+  "variables": {
+    "assetsBaseUrl": "[if(empty(parameters('assetsBaseUrl')), if(contains(deployment().properties, 'templateLink'), uri(deployment().properties.templateLink.uri, '../'), 'https://raw.githubusercontent.com/noelbundick/arm-proxy/master/'), parameters('assetsBaseUrl'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2019-10-01",
+      "location": "[deployment().location]",
+      "name": "[parameters('name')]"
+    },
+    {
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups', parameters('name'))]"
+      ],
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "network",
+      "resourceGroup": "[parameters('name')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[uri(variables('assetsBaseUrl'), './sample/linkedTemplate.json')]"
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
