@@ -9,7 +9,7 @@
   },
   "functions": [],
   "variables": {
-    "assetsBaseUrl": "[uri(deployment().properties.templateLink.uri, '../')]"
+    "assetsBaseUrl": "[uri(deployment().properties.templateLink.uri, './')]"
   },
   "resources": [
     {
