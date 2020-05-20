@@ -3,12 +3,16 @@
 ## Usage
 
 ```shell
-# Install the arm-proxy extension and start a new dynamic proxy
+# Install the arm-proxy extension
 az extension add -s https://github.com/noelbundick/arm-proxy/releases/download/v0.0.1/arm_proxy-0.0.1-py3-none-any.whl
+
+# Start a new proxy pointed at the sample folder
+git clone https://github.com/noelbundick/arm-proxy.git
+cd arm-proxy/sample
 az arm-proxy start
 
-# Iterate on linked ARM templates hosted from your local machine
-az deployment sub create -l westus2 -u http://be5cc4e3.ngrok.io/sample/baseTemplate.json
+# Iterate on linked ARM templates hosted from your local machine (replace with your ngrok URL)
+az deployment sub create -l westus2 -u https://be5cc4e3.ngrok.io/baseTemplate.json
 ```
 
 ## Development
